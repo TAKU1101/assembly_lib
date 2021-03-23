@@ -1,9 +1,12 @@
 #include <stdio.h>
 #include <string.h>
+#include <unistd.h>
+#include <errno.h>
 
 size_t	ft_strlen(char *str);
 char	*ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
+ssize_t	ft_write(int fildes, const void *buf, size_t nbyte);
 
 int main()
 {
@@ -60,4 +63,32 @@ int main()
 	printf("%d\n", strcmp(str3, str1));
 	printf("%d\n", strcmp(str3, str2));
 	printf("%d\n", strcmp(str3, str3));
+
+	printf("==========> write <==========\n");
+
+	printf(": %zd", ft_write(1, str1, ft_strlen(str1)));
+	printf(" %d\n", errno);
+	printf(": %zd", ft_write(1, str2, ft_strlen(str2)));
+	printf(" %d\n", errno);
+	printf(": %zd", ft_write(1, str3, ft_strlen(str3)));
+	printf(" %d\n", errno);
+	printf(": %zd", write(1, str1, strlen(str1)));
+	printf(" %d\n", errno);
+	printf(": %zd", write(1, str2, strlen(str2)));
+	printf(" %d\n", errno);
+	printf(": %zd", write(1, str3, strlen(str3)));
+	printf(" %d\n", errno);
+
+	printf(": %zd", ft_write(-1, str1, ft_strlen(str1)));
+	printf(" %d\n", errno);
+	printf(": %zd", ft_write(1, str1, -1));
+	printf(" %d\n", errno);
+	printf(": %zd", ft_write(1, (const void *)42, 1));
+	printf(" %d\n", errno);
+	printf(": %zd", write(-1, str1, ft_strlen(str1)));
+	printf(" %d\n", errno);
+	printf(": %zd", write(1, str1, -1));
+	printf(" %d\n", errno);
+	printf(": %zd", write(1, (const void *)42, 1));
+	printf(" %d\n", errno);
 }
