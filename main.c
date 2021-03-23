@@ -2,11 +2,13 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <fcntl.h>
 
 size_t	ft_strlen(char *str);
 char	*ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 ssize_t	ft_write(int fildes, const void *buf, size_t nbyte);
+size_t	ft_read(int fildes, void *buf, size_t nbyte);
 
 int main()
 {
@@ -91,4 +93,72 @@ int main()
 	printf(" %d\n", errno);
 	printf(": %zd", write(1, (const void *)42, 1));
 	printf(" %d\n", errno);
+
+	printf("==========> read <==========\n");
+
+	int fd, n;
+
+	fd = open("a.txt", O_RDONLY);
+	n = ft_read(fd, buf1, 0);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = ft_read(fd, buf1, 5);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+	fd = open("c.txt", O_RDONLY);
+	n = ft_read(fd, buf1, 42);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+
+	fd = open("a.txt", O_RDONLY);
+	n = read(fd, buf1, 0);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = read(fd, buf1, 5);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+	fd = open("c.txt", O_RDONLY);
+	n = read(fd, buf1, 42);
+	buf1[n] = 0;
+	printf("%zd: %s\n", n, buf1);
+	close(fd);
+
+	fd = open("b.txt", O_RDONLY);
+	n = ft_read(-1, buf1, 5);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = ft_read(fd, (char *)0, 5);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = ft_read(fd, buf1, -1);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
+
+	fd = open("b.txt", O_RDONLY);
+	n = read(-1, buf1, 5);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = read(fd, (char *)0, 5);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
+	fd = open("b.txt", O_RDONLY);
+	n = read(fd, buf1, -1);
+	buf1[n] = 0;
+	printf("%zd: %s %d\n", n, buf1, errno);
+	close(fd);
 }
