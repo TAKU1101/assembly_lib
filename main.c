@@ -3,12 +3,14 @@
 #include <unistd.h>
 #include <errno.h>
 #include <fcntl.h>
+#include <stdlib.h>
 
 size_t	ft_strlen(char *str);
 char	*ft_strcpy(char *dst, const char *src);
 int		ft_strcmp(const char *s1, const char *s2);
 ssize_t	ft_write(int fildes, const void *buf, size_t nbyte);
 size_t	ft_read(int fildes, void *buf, size_t nbyte);
+char	*ft_strdup(const char *s1);
 
 int main()
 {
@@ -96,7 +98,8 @@ int main()
 
 	printf("==========> read <==========\n");
 
-	int fd, n;
+	int fd;
+	size_t n;
 
 	fd = open("a.txt", O_RDONLY);
 	n = ft_read(fd, buf1, 0);
@@ -161,4 +164,28 @@ int main()
 	buf1[n] = 0;
 	printf("%zd: %s %d\n", n, buf1, errno);
 	close(fd);
+
+	printf("==========> ft_strdup <==========\n");
+
+	char *dest1, *dest2, *dest3;
+
+	dest1 = ft_strdup(str1);
+	printf("%s %s\n", dest1, str1);
+	dest2 = ft_strdup(str2);
+	printf("%s %s\n", dest2, str2);
+	dest3 = ft_strdup(str3);
+	printf("%s %s\n", dest3, str3);
+	free(dest1);
+	free(dest2);
+	free(dest3);
+
+	dest1 = strdup(str1);
+	printf("%s %s\n", dest1, str1);
+	dest2 = strdup(str2);
+	printf("%s %s\n", dest2, str2);
+	dest3 = strdup(str3);
+	printf("%s %s\n", dest3, str3);
+	free(dest1);
+	free(dest2);
+	free(dest3);
 }
