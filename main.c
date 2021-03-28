@@ -14,7 +14,7 @@ char	*ft_strdup(const char *s1);
 
 int main()
 {
-	char *str1 = "";
+	char *str1 = "abc";
 	char *str2 = "hello";
 	char *str3 = "123456789012345678901234567890123456789012";
 	char buf1[128];
@@ -48,6 +48,7 @@ int main()
 
 	printf("==========> ft_strcmp <==========\n");
 
+	printf("%d\n", ft_strcmp("", ""));
 	printf("%d\n", ft_strcmp(str1, str1));
 	printf("%d\n", ft_strcmp(str1, str2));
 	printf("%d\n", ft_strcmp(str1, str3));
