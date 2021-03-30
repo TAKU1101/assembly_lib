@@ -11,8 +11,13 @@ TEST_FILE=main.c
 
 NAME=libasm.a
 
+ifeq ($(shell uname),Linux)
 .s.o:
-	nasm -fmacho64 $<
+	nasm -fmacho64 -D OS=LINUX $<
+else
+.s.o:
+	nasm -fmacho64 -D OS=MAC $<
+endif
 
 $(NAME): $(OBJS)
 	ar rcs $(NAME) $(OBJS)
@@ -20,15 +25,16 @@ $(NAME): $(OBJS)
 all: $(NAME)
 
 clean:
-	rm -rf $(OBJS) main.o
+	$(RM) $(OBJS) main.o
 
 fclean: clean
-	rm -rf $(NAME)
+	$(RM) $(NAME)
 
 re: fclean all
 
 test: re
 	gcc $(TEST_FILE) $(NAME)
 	./a.out
+	$(RM) a.out
 
 .PHONY: all clean fclean re test
