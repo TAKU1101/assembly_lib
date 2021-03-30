@@ -11,10 +11,11 @@ TEST_FILE=main.c
 
 NAME=libasm.a
 
-ifeq ($(shell uname),Linux)
+ifeq ($(shell uname), Linux)
 .s.o:
 	nasm -fmacho64 -D OS=LINUX $<
-else
+endif
+ifeq ($(shell uname), Darwin)
 .s.o:
 	nasm -fmacho64 -D OS=MAC $<
 endif
