@@ -1,11 +1,15 @@
 %ifdef LINUX
 %define STRDUP_NAME ft_strdup
 %define MALLOC_NAME malloc
+%define STRLEN_NAME ft_strlen
+%define STRCPY_NAME ft_strcpy
 %endif
 
 %ifdef MAC
 %define STRDUP_NAME _ft_strdup
 %define MALLOC_NAME _malloc
+%define STRLEN_NAME _ft_strlen
+%define STRCPY_NAME _ft_strcpy
 %endif
 
 global STRDUP_NAME

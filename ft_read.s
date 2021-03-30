@@ -10,7 +10,7 @@
 %define WRITE_NUM 0x2000003
 %endif
 
-global WRITE_NAME
+global READ_NAME
 extern ERROR_NAME
 
 section .text
