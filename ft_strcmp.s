@@ -1,7 +1,15 @@
-global _ft_strcmp
+%ifdef LINUX
+%define STRCMP_NAME ft_strcmp
+%endif
+
+%ifdef MAC
+%define STRCMP_NAME _ft_strcmp
+%endif
+
+global STRCMP_NAME
 
 section .text
-_ft_strcmp:
+STRCMP_NAME:
 	mov rcx, 0
 	mov rax, 0
 	mov rdx, 0

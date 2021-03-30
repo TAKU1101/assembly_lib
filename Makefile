@@ -13,11 +13,11 @@ NAME=libasm.a
 
 ifeq ($(shell uname), Linux)
 .s.o:
-	nasm -fmacho64 -D OS=LINUX $<
+	nasm -fmacho64 -D LINUX $<
 endif
 ifeq ($(shell uname), Darwin)
 .s.o:
-	nasm -fmacho64 -D OS=MAC $<
+	nasm -fmacho64 -D MAC $<
 endif
 
 $(NAME): $(OBJS)
