@@ -1,9 +1,16 @@
-SRCS=ft_strlen.s \
-	 ft_strcpy.s \
-	 ft_strcmp.s \
-	 ft_write.s \
-	 ft_read.s \
-	 ft_strdup.s
+#SRCS=ft_strlen.s \
+#	 ft_strcpy.s \
+#	 ft_strcmp.s \
+#	 ft_write.s \
+#	 ft_read.s \
+#	 ft_strdup.s
+
+ifeq ($(shell uname), Linux)
+SRCS += ${shell find ./srcs_linux -type f -name "*.s"}
+endif
+ifeq ($(shell uname), Darwin)
+SRCS += ${shell find ./srcs_mac -type f -name "*.s"}
+endif
 
 OBJS = $(SRCS:.s=.o)
 
@@ -13,11 +20,11 @@ NAME=libasm.a
 
 ifeq ($(shell uname), Linux)
 .s.o:
-	nasm -fmacho64 -D LINUX $<
+	nasm -f elf64 -D LINUX $<
 endif
 ifeq ($(shell uname), Darwin)
 .s.o:
-	nasm -fmacho64 -D MAC $<
+	nasm -f macho64 -D MAC $<
 endif
 
 $(NAME): $(OBJS)
