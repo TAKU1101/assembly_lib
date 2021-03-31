@@ -1,23 +1,10 @@
-%ifdef LINUX
-%define WRITE_NAME ft_write
-%define ERROR_NAME __errno_location
-%define WRITE_NUM 0x1
-%endif
-
-%ifdef MAC
-%define WRITE_NAME _ft_write
-%define ERROR_NAME ___error
-%define WRITE_NUM 0x2000004
-%endif
-
-global WRITE_NAME
-extern ERROR_NAME
+  
+global _ft_write
+extern ___error
 
 section .text
-WRITE_NAME:
-;	cmp edi, 0
-;	jl .fd_err
-	mov rax, WRITE_NUM
+_ft_write:
+	mov rax, 0x2000004
 	syscall
 	cmp rax,9
 	je .fd_err
@@ -29,7 +16,7 @@ WRITE_NAME:
 .len_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call ___error
 	mov  QWORD [RAX], 22
 	mov  rax, -1
 	mov  rsp, rbp
@@ -38,7 +25,7 @@ WRITE_NAME:
 .address_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call ___error
 	mov  QWORD [RAX], 14
 	mov  rax, -1
 	mov  rsp, rbp
@@ -47,7 +34,7 @@ WRITE_NAME:
 .fd_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call ___error
 	mov  QWORD [RAX], 9
 	mov  rax, -1
 	mov  rsp, rbp

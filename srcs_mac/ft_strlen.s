@@ -1,15 +1,7 @@
-%ifdef LINUX
-%define STRLEN_NAME ft_strlen
-%endif
-
-%ifdef MAC
-%define STRLEN_NAME _ft_strlen
-%endif
-
-global STRLEN_NAME
+global _ft_strlen
 
 section .text
-STRLEN_NAME:
+_ft_strlen:
 	mov rax, rdi
 .loop:
 	cmp byte [rax], 0
