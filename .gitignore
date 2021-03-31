@@ -1,5 +1,5 @@
 # object file
-*.o
+*/*.o
 
 # exe file
 a.out
