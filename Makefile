@@ -14,7 +14,7 @@ endif
 
 OBJS = $(SRCS:.s=.o)
 
-TEST_FILE=main.c
+TEST_FILE=srcs_test/main.c
 
 NAME=libasm.a
 
