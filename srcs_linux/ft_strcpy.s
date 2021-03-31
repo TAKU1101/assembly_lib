@@ -1,15 +1,7 @@
-%ifdef LINUX
-%define STRCPY_NAME ft_strcpy
-%endif
-
-%ifdef MAC
-%define STRCPY_NAME _ft_strcpy
-%endif
-
-global STRCPY_NAME
+global ft_strcpy
 
 section .text
-STRCPY_NAME:
+ft_strcpy:
 	push rdi
 	push rsi
 	mov rcx, 0

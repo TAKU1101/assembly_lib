@@ -1,32 +1,18 @@
-%ifdef LINUX
-%define STRDUP_NAME ft_strdup
-%define MALLOC_NAME malloc
-%define STRLEN_NAME ft_strlen
-%define STRCPY_NAME ft_strcpy
-%endif
+global ft_strdup
 
-%ifdef MAC
-%define STRDUP_NAME _ft_strdup
-%define MALLOC_NAME _malloc
-%define STRLEN_NAME _ft_strlen
-%define STRCPY_NAME _ft_strcpy
-%endif
-
-global STRDUP_NAME
-
-extern STRLEN_NAME
-extern STRCPY_NAME
-extern MALLOC_NAME
+extern ft_strlen
+extern ft_strcpy
+extern malloc
 
 section .text
-STRDUP_NAME:
+ft_strdup:
 	push	rdi
-	call STRLEN_NAME
+	call ft_strlen
 	inc rax
 	mov rdi, rax
-	call MALLOC_NAME
+	call malloc
 	pop rdi
 	mov rsi, rdi
 	mov rdi, rax
-	call STRCPY_NAME
+	call ft_strcpy
 	ret

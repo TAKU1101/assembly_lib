@@ -1,21 +1,9 @@
-%ifdef LINUX
-%define READ_NAME ft_read
-%define ERROR_NAME __errno_location
-%define WRITE_NUM 0x0
-%endif
-
-%ifdef MAC
-%define READ_NAME _ft_read
-%define ERROR_NAME ___error
-%define WRITE_NUM 0x2000003
-%endif
-
-global READ_NAME
-extern ERROR_NAME
+global ft_read
+extern __errno_location
 
 section .text
-READ_NAME:
-	mov rax, 0x2000003
+ft_read:
+	mov rax, 0x0
 	syscall
 	cmp rax,9
 	je .fd_err
@@ -27,7 +15,7 @@ READ_NAME:
 .len_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call __errno_location
 	mov  QWORD [RAX], 22
 	mov  rax, -1
 	mov  rsp, rbp
@@ -36,7 +24,7 @@ READ_NAME:
 .address_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call __errno_location
 	mov  QWORD [RAX], 14
 	mov  rax, -1
 	mov  rsp, rbp
@@ -45,7 +33,7 @@ READ_NAME:
 .fd_err:
 	push rbp
 	mov  rbp, rsp
-	call ERROR_NAME
+	call __errno_location
 	mov  QWORD [RAX], 9
 	mov  rax, -1
 	mov  rsp, rbp
