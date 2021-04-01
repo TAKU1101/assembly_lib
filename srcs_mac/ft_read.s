@@ -3,39 +3,19 @@ extern ___error
 
 section .text
 _ft_read:
+	push rbp
+	mov  rbp, rsp
 	mov rax, 0x2000003
 	syscall
-	cmp rax,9
-	je .fd_err
-	cmp rax, 14
-	je .address_err
-	cmp rax, 22
-	je .len_err
-	ret
-.len_err:
-	push rbp
-	mov  rbp, rsp
+	push rax
+	jc .error
+	jmp .end
+.error:
 	call ___error
-	mov  QWORD [RAX], 22
+	pop rcx
+	mov  QWORD [RAX], rcx
 	mov  rax, -1
-	mov  rsp, rbp
-	pop  rbp
-	ret
-.address_err:
-	push rbp
-	mov  rbp, rsp
-	call ___error
-	mov  QWORD [RAX], 14
-	mov  rax, -1
-	mov  rsp, rbp
-	pop  rbp
-	ret
-.fd_err:
-	push rbp
-	mov  rbp, rsp
-	call ___error
-	mov  QWORD [RAX], 9
-	mov  rax, -1
+.end
 	mov  rsp, rbp
 	pop  rbp
 	ret
