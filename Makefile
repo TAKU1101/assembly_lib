@@ -1,10 +1,3 @@
-#SRCS=ft_strlen.s \
-#	 ft_strcpy.s \
-#	 ft_strcmp.s \
-#	 ft_write.s \
-#	 ft_read.s \
-#	 ft_strdup.s
-
 ifeq ($(shell uname), Linux)
 SRCS += ${shell find ./srcs_linux -type f -name "*.s"}
 endif
@@ -41,7 +34,7 @@ fclean: clean
 re: fclean all
 
 test: re
-	gcc $(TEST_FILE) $(NAME)
+	gcc -L. -lasm $(TEST_FILE)
 	./a.out
 	$(RM) a.out
 

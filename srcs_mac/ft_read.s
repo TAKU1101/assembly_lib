@@ -15,7 +15,7 @@ _ft_read:
 	pop rcx
 	mov  QWORD [RAX], rcx
 	mov  rax, -1
-.end
+.end:
 	mov  rsp, rbp
 	pop  rbp
 	ret
