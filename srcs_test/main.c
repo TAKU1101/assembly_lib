@@ -208,7 +208,9 @@ int main()
 	write_test("write_test.txt", str3, ft_strlen(str3));
 	close(fd);
 
-	write_errno_test(42, str1, ft_strlen(str1));
+	ft_write(-1, "test", 5);
+
+	write_errno_test(-1, str1, ft_strlen(str1));
 	write_errno_test(1, str1, -2);
 	write_errno_test(1, NULL, 1);
 
